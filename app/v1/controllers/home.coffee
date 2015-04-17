@@ -4,6 +4,10 @@ Nightmare = require 'nightmare'
 _ = require 'underscore'
 mongoose = require "mongoose"
 cheerio = require "cheerio"
+Pushover = require('pushover-notifications')
+pushover = new Pushover(
+  user: "grreasujfdiYNrNyhHKBNk3NtnGGjL"
+  token: "aYMA76EHGjGf26X2UbNGqNnyMnvV3y")
 require "#{v.PATH.v1.MODELS}/alert"
 Alert = mongoose.models.Alert
 require "#{v.PATH.v1.MODELS}/concert"
