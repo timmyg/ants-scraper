@@ -1,8 +1,8 @@
-# # this runs once after tests are ran
-{Article} = require './vars'
+# # # this runs once after tests are ran
+# {Article} = require './vars'
 
-after (done) ->
-	Article.remove
-		title: "Testy Mctesterson"
-	, (err, article) ->
-		done()
+# after (done) ->
+# 	Article.remove
+# 		title: "Testy Mctesterson"
+# 	, (err, article) ->
+# 		done()
