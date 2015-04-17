@@ -1,0 +1,5 @@
+--require should
+--require request
+--reporter landing
+--compilers coffee:coffee-script/register
+--recursive
