@@ -26,6 +26,13 @@ git push heroku master
 * pinging every 5 minutes from statuscake.com
 * concert keywords can be changed in database concerts collection without needing server reset
 
+##### required env vars
+* MONGO_URL
+* ANTS_USER
+* ANTS_PASSWORD
+* PUSHOVER_USER
+* PUSHOVER_TOKEN
+
 ##### the best part... 
 ###### when all tests pass... you get a plane landing safely animation
 ```
