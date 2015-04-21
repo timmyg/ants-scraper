@@ -20,8 +20,8 @@ homeController.ants = (req, res) ->
 	getConcertKeywords (err, keywords)->
 		(new Nightmare)
 		.goto('http://antsmarching.org/forum/forumdisplay.php?f=11')
-		.type('input.bginput#navbar_username', 'timmyg013')
-		.type('input.bginput#navbar_password', 'orange13')
+		.type('input.bginput#navbar_username', process.env.ANTS_USER)
+		.type('input.bginput#navbar_password', process.env.ANTS_PASSWORD)
 		.screenshot('test/ants-before-login.png')
 		.click('input.button[type="submit"][value="Log in"]')
 		.wait()
