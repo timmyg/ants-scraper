@@ -51,6 +51,9 @@ homeController.ants = (req, res) ->
 			return res.sendStatus 201
 		)
 
+homeController.sendTest = (req, res) ->
+	sendAlert "Test Alert", "https://www.espn.com"
+	return res.sendStatus 201
 
 sendAlert = (title, link) ->
 	msg = 
