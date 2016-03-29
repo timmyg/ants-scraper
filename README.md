@@ -20,6 +20,11 @@ mocha
 git push heroku master  
 ```
 
+##### view heroku logs
+```
+heroku logs -n 1500
+```
+
 ##### other
 * prod mongo url hosted on mongolab
 * server running on heroku
