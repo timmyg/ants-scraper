@@ -18,6 +18,7 @@ homeController.index = (req, res) ->
 
 homeController.ants = (req, res) ->
 	getConcertKeywords (err, keywords)->
+		console.log "keywords:", keywords
 		(new Nightmare)
 		.goto('http://antsmarching.org/forum/forumdisplay.php?f=11')
 		.type('input.bginput#navbar_username', process.env.ANTS_USER)
@@ -33,9 +34,11 @@ homeController.ants = (req, res) ->
 			document
 		), (doc) ->
 			html = doc.all['0'].innerHTML
+			console.log "ants html", html
 			$ = cheerio.load(html)
 			$('[id^=thread_title]').each (i, elem) ->
 				title = $(this).parent().text().trim().replace(/(\r\n|\n|\r)/gm,"")
+				console.log "thread title:", title
 				id =  $(this)['0'].attribs.id
 				path =  $(this)['0'].attribs.href
 				relevantConcert = isCoolConcert title, id, path, keywords

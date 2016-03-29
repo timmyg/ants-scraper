@@ -20,6 +20,12 @@ mocha
 git push heroku master  
 ```
 
+##### test notification
+```
+GET http://ants-scraper.herokuapp.com/v1/send/test
+```
+
+
 ##### other
 * prod mongo url hosted on mongolab
 * server running on heroku
