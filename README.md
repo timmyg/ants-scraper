@@ -26,6 +26,11 @@ GET http://ants-scraper.herokuapp.com/v1/send/test
 ```
 
 
+##### view heroku logs
+```
+heroku logs -n 1500
+```
+
 ##### other
 * prod mongo url hosted on mongolab
 * server running on heroku
