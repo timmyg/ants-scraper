@@ -32,7 +32,7 @@ homeController.ants = (req, res) ->
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 
-	console.time "TIME_LABEL-#{i}"
+	console.time "#{TIME_LABEL}-#{i}"
 	getConcertKeywords (err, keywords)->
 		console.log "keywords:", keywords
 		(new Nightmare)
@@ -67,7 +67,7 @@ homeController.ants = (req, res) ->
 					, (err, alert) ->	
 						sendAlert title, link
 		).run(->
-			console.timeEnd "TIME_LABEL-#{i}"
+			console.timeEnd "#{TIME_LABEL}-#{i}"
 			i++
 			return res.sendStatus 201
 		)
