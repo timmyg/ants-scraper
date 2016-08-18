@@ -4,6 +4,7 @@ Nightmare = require 'nightmare'
 _ = require 'underscore'
 mongoose = require "mongoose"
 cheerio = require "cheerio"
+request = require("request").defaults(json: true)
 Pushover = require('pushover-notifications')
 pushover = new Pushover(
   user: process.env.PUSHOVER_USER
@@ -12,11 +13,19 @@ require "#{v.PATH.v1.MODELS}/alert"
 Alert = mongoose.models.Alert
 require "#{v.PATH.v1.MODELS}/concert"
 Concert = mongoose.models.Concert
+TIME_LABEL = "ants"
 
 homeController.index = (req, res) ->
 	return res.sendStatus 200
 
 homeController.ants = (req, res) ->
+	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
+	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
+	console.log "- - - - - - - - - - - - - RUNNING - - - - - - - - - - - - -"
+	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
+	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
+
+	console.time TIME_LABEL
 	getConcertKeywords (err, keywords)->
 		console.log "keywords:", keywords
 		(new Nightmare)
@@ -51,6 +60,7 @@ homeController.ants = (req, res) ->
 					, (err, alert) ->	
 						sendAlert title, link
 		).run(->
+			console.timeEnd TIME_LABEL
 			return res.sendStatus 201
 		)
 
