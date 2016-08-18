@@ -13,14 +13,15 @@ require "#{v.PATH.v1.MODELS}/alert"
 Alert = mongoose.models.Alert
 require "#{v.PATH.v1.MODELS}/concert"
 Concert = mongoose.models.Concert
-TIME_LABEL = "ants"
+TIME_LABEL = "ants-timer"
 i = 0
+TIMER_SECONDS = 90
 
 callAnts = ->
   request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
 
-# every 90 seconds
-setInterval callAnts, 90 * 1000
+# call self every TIMER_SECONDS seconds
+setInterval callAnts, TIMER_SECONDS * 1000
 
 homeController.index = (req, res) ->
 	return res.sendStatus 200
