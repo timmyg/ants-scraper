@@ -15,6 +15,7 @@ require "#{v.PATH.v1.MODELS}/concert"
 Concert = mongoose.models.Concert
 TIME_LABEL = "ants-timer"
 TIMER_SECONDS = 90
+i = 0
 
 callAnts = ->
   request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
@@ -26,7 +27,6 @@ homeController.index = (req, res) ->
 	return res.sendStatus 200
 
 homeController.ants = (req, res) ->
-	i = 0
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 	console.log "- - - - - - - - - - - - - RUNNING - - - - - - - - - - - - -"
