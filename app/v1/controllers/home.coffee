@@ -83,6 +83,7 @@ sendAlert = (title, link) ->
 		message: "#{title} #{link}"
 		url: link
 		title: 'Ants alert'
+		priority: 1
 	pushover.send msg, (err, result) ->
 		console.error err if err
 
