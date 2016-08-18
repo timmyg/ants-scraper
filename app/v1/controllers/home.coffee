@@ -13,8 +13,7 @@ require "#{v.PATH.v1.MODELS}/alert"
 Alert = mongoose.models.Alert
 require "#{v.PATH.v1.MODELS}/concert"
 Concert = mongoose.models.Concert
-TIME_LABEL = "ants-timer"
-i = 0
+TIME_LABEL = -> "ants-timer"
 TIMER_SECONDS = 90
 
 callAnts = ->
@@ -27,6 +26,7 @@ homeController.index = (req, res) ->
 	return res.sendStatus 200
 
 homeController.ants = (req, res) ->
+	i = 0
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 	console.log "- - - - - - - - - - - - - RUNNING - - - - - - - - - - - - -"
