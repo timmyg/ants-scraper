@@ -13,7 +13,7 @@ require "#{v.PATH.v1.MODELS}/alert"
 Alert = mongoose.models.Alert
 require "#{v.PATH.v1.MODELS}/concert"
 Concert = mongoose.models.Concert
-TIME_LABEL = -> "ants-timer"
+TIME_LABEL = "ants-timer"
 TIMER_SECONDS = 90
 
 callAnts = ->
