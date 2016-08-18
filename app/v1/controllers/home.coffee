@@ -19,7 +19,8 @@ i = 0
 callAnts = ->
   request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
 
-setInterval callAnts, 30 * 1000
+# every 90 seconds
+setInterval callAnts, 90 * 1000
 
 homeController.index = (req, res) ->
 	return res.sendStatus 200
