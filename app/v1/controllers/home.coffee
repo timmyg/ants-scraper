@@ -6,9 +6,10 @@ mongoose = require "mongoose"
 cheerio = require "cheerio"
 request = require("request").defaults(json: true)
 Pushover = require('pushover-notifications')
-pushover = new Pushover(
+pushover = new Pushover
   user: process.env.PUSHOVER_USER
-  token: process.env.PUSHOVER_TOKEN)
+  token: process.env.PUSHOVER_TOKEN
+  priority: 1 # high
 require "#{v.PATH.v1.MODELS}/alert"
 Alert = mongoose.models.Alert
 require "#{v.PATH.v1.MODELS}/concert"
