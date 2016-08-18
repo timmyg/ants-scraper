@@ -14,6 +14,12 @@ Alert = mongoose.models.Alert
 require "#{v.PATH.v1.MODELS}/concert"
 Concert = mongoose.models.Concert
 TIME_LABEL = "ants"
+i = 0
+
+callAnts = ->
+  request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
+
+setInterval callAnts, 30 * 1000
 
 homeController.index = (req, res) ->
 	return res.sendStatus 200
@@ -25,7 +31,7 @@ homeController.ants = (req, res) ->
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 
-	console.time TIME_LABEL
+	console.time "TIME_LABEL-#{i}"
 	getConcertKeywords (err, keywords)->
 		console.log "keywords:", keywords
 		(new Nightmare)
@@ -60,7 +66,8 @@ homeController.ants = (req, res) ->
 					, (err, alert) ->	
 						sendAlert title, link
 		).run(->
-			console.timeEnd TIME_LABEL
+			console.timeEnd "TIME_LABEL-#{i}"
+			i++
 			return res.sendStatus 201
 		)
 
