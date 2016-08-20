@@ -38,22 +38,39 @@ homeController.cashortrade = (req, res) ->
 	# ).catch (error) ->
 	# 	console.error 'Search failed:', error
 	# 	return res.sendStatus 201
-	console.log "1"
+	# console.log "1"
+	# (new Nightmare)
+	# .goto('http://yahoo.com')
+	# .type('form[action*="/search"] [name=p]', 'github nightmare')
+	# .click('form[action*="/search"] [type=submit]')
+	# .wait('#main')
+	# .evaluate(->
+	# 	console.log "2"
+	# 	document.querySelector('#main .searchCenterMiddle li a').href
+	# ).end().then((result) ->
+	# 	console.log "3"
+	# 	console.log result
+	# 	return
+	# ).catch (error) ->
+	# 	console.error 'Search failed:', error
+	# 	return
 	(new Nightmare)
-	.goto('http://yahoo.com')
-	.type('form[action*="/search"] [name=p]', 'github nightmare')
-	.click('form[action*="/search"] [type=submit]')
-	.wait('#main')
-	.evaluate(->
-		console.log "2"
-		document.querySelector('#main .searchCenterMiddle li a').href
-	).end().then((result) ->
-		console.log "3"
-		console.log result
-		return
-	).catch (error) ->
-		console.error 'Search failed:', error
-		return
+	.goto('https://cashortrade.org/dave-matthews-band-tickets?cash_or_trade=1')
+	# .type('input.bginput#navbar_username', process.env.ANTS_USER)
+	# .type('input.bginput#navbar_password', process.env.ANTS_PASSWORD)
+	# .screenshot('test/ants-before-login.png')
+	# .click('input.button[type="submit"][value="Log in"]')
+	# .wait()
+	# .goto('http://antsmarching.org/forum/forumdisplay.php?f=11')
+	# .screenshot('test/ants-after-login-1.png')
+	.wait()
+	# .screenshot('test/ants-after-login-2.png')
+	.evaluate((->
+		document
+	), (doc) ->
+		console.log "cashortradedoc"
+		console.log doc
+		return res.sendStatus 208
 
 
 homeController.ants = (req, res) ->
