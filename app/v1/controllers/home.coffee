@@ -33,33 +33,34 @@ homeController.index = (req, res) ->
 	return res.sendStatus 200
 
 homeController.cashortrade = (req, res) ->
-	(new Nightmare)
-	.goto('https://cashortrade.org/dave-matthews-band-tickets?cash_or_trade=1')
-	.wait()
-	.evaluate((->
-		document
-	), (doc) ->
-		html = doc.all['0'].innerHTML
-		console.log "cot html", html
-		$ = cheerio.load(html)
-		$('.face-value').each (i, elem) ->
-			title = $(this).text().trim()
-			id =  $(this)['0'].attribs.href.split("/")[4]
-			path =  $(this)['0'].attribs.href
-			console.log "cashortrade:", title, id, path
-			relevantConcert = isCoolConcert title, id, path, keywords
-			isAlreadySent path, (err, alert) ->
-				return console.info "already created #{path}" if alert
-				link = "https://cashortrade.org#{path}"
-				Alert.create
-					href: path
-				, (err, alert) ->	
-					sendAlert title, link
-	).run(->
-		console.timeEnd "#{TIME_LABEL}-#{i}"
-		i++
-		return res.sendStatus 201
-	)
+	getConcertKeywords (err, keywords)->
+		(new Nightmare)
+		.goto('https://cashortrade.org/dave-matthews-band-tickets?cash_or_trade=1')
+		.wait()
+		.evaluate((->
+			document
+		), (doc) ->
+			html = doc.all['0'].innerHTML
+			console.log "cot html", html
+			$ = cheerio.load(html)
+			$('.face-value').each (i, elem) ->
+				title = $(this).text().trim()
+				id =  $(this)['0'].attribs.href.split("/")[4]
+				path =  $(this)['0'].attribs.href
+				console.log "cashortrade:", title, id, path
+				relevantConcert = isCoolConcert title, id, path, keywords
+				isAlreadySent path, (err, alert) ->
+					return console.info "already created #{path}" if alert
+					link = "https://cashortrade.org#{path}"
+					Alert.create
+						href: path
+					, (err, alert) ->	
+						sendAlert title, link
+		).run(->
+			console.timeEnd "#{TIME_LABEL}-#{i}"
+			i++
+			return res.sendStatus 201
+		)
 
 
 homeController.ants = (req, res) ->
