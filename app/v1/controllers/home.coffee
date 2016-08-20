@@ -57,6 +57,7 @@ homeController.cashortrade = (req, res) ->
 				console.log "cashortrade:", title, id, path
 				console.log "5"
 				relevantConcert = isCoolConcert title, id, path, keywords
+				return console.info "not relevant" unless relevantConcert
 				isAlreadySent path, (err, alert) ->
 					console.log "6"
 					return console.info "already created #{path}" if alert
