@@ -30,47 +30,34 @@ homeController.index = (req, res) ->
 	return res.sendStatus 200
 
 homeController.cashortrade = (req, res) ->
-	# (new Nightmare)
-	# .goto('https://cashortrade.org/dave-matthews-band-tickets?cash_or_trade=1')
-	# .end()
-	# .then((result) ->
-	# 	console.log result
-	# ).catch (error) ->
-	# 	console.error 'Search failed:', error
-	# 	return res.sendStatus 201
-	# console.log "1"
-	# (new Nightmare)
-	# .goto('http://yahoo.com')
-	# .type('form[action*="/search"] [name=p]', 'github nightmare')
-	# .click('form[action*="/search"] [type=submit]')
-	# .wait('#main')
-	# .evaluate(->
-	# 	console.log "2"
-	# 	document.querySelector('#main .searchCenterMiddle li a').href
-	# ).end().then((result) ->
-	# 	console.log "3"
-	# 	console.log result
-	# 	return
-	# ).catch (error) ->
-	# 	console.error 'Search failed:', error
-	# 	return
 	(new Nightmare)
 	.goto('https://cashortrade.org/dave-matthews-band-tickets?cash_or_trade=1')
-	# .type('input.bginput#navbar_username', process.env.ANTS_USER)
-	# .type('input.bginput#navbar_password', process.env.ANTS_PASSWORD)
-	# .screenshot('test/ants-before-login.png')
-	# .click('input.button[type="submit"][value="Log in"]')
-	# .wait()
-	# .goto('http://antsmarching.org/forum/forumdisplay.php?f=11')
-	# .screenshot('test/ants-after-login-1.png')
 	.wait()
-	# .screenshot('test/ants-after-login-2.png')
 	.evaluate((->
 		document
 	), (doc) ->
-		console.log "cashortradedoc"
-		console.log doc
-		return res.sendStatus 208
+		html = doc.all['0'].innerHTML
+		console.log "cot html", html
+		# $ = cheerio.load(html)
+		# $('[id^=thread_title]').each (i, elem) ->
+		# 	title = $(this).parent().text().trim().replace(/(\r\n|\n|\r)/gm,"")
+		# 	console.log "thread title:", title
+		# 	id =  $(this)['0'].attribs.id
+		# 	path =  $(this)['0'].attribs.href
+		# 	relevantConcert = isCoolConcert title, id, path, keywords
+		# 	return console.info "not relevant" unless relevantConcert
+		# 	isAlreadySent path, (err, alert) ->
+		# 		return console.info "already created #{path}" if alert
+		# 		link = "http://antsmarching.org/forum/#{path}"
+		# 		Alert.create
+		# 			href: path
+		# 		, (err, alert) ->	
+		# 			sendAlert title, link
+	).run(->
+		console.timeEnd "#{TIME_LABEL}-#{i}"
+		i++
+		return res.sendStatus 201
+	)
 
 
 homeController.ants = (req, res) ->
