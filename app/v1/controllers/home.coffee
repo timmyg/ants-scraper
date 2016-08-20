@@ -35,7 +35,7 @@ homeController.index = (req, res) ->
 	return res.sendStatus 200
 
 homeController.cashortrade = (req, res) ->
-	console.timeEnd "#{COT_TIME_LABEL}-#{i2}"
+	console.time "#{COT_TIME_LABEL}-#{i2}"
 	getConcertKeywords (err, keywords)->
 		console.log "1"
 		(new Nightmare)
