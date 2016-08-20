@@ -3,6 +3,7 @@ v = require "#{process.env.PWD}/config/vars"
 Nightmare = require 'nightmare'
 _ = require 'underscore'
 mongoose = require "mongoose"
+moment = require "moment"
 cheerio = require "cheerio"
 request = require("request").defaults(json: true)
 Pushover = require('pushover-notifications')
@@ -15,11 +16,12 @@ Alert = mongoose.models.Alert
 require "#{v.PATH.v1.MODELS}/concert"
 Concert = mongoose.models.Concert
 TIME_LABEL = "ants-timer"
-TIMER_SECONDS = 90
+TIMER_SECONDS = 90 
 i = 0
 
 callAnts = ->
-  request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
+	console.log "call ants"
+	request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
 
 # call self every TIMER_SECONDS seconds
 setInterval callAnts, TIMER_SECONDS * 1000
@@ -27,10 +29,37 @@ setInterval callAnts, TIMER_SECONDS * 1000
 homeController.index = (req, res) ->
 	return res.sendStatus 200
 
+homeController.cashortrade = (req, res) ->
+	# (new Nightmare)
+	# .goto('https://cashortrade.org/dave-matthews-band-tickets?cash_or_trade=1')
+	# .end()
+	# .then((result) ->
+	# 	console.log result
+	# ).catch (error) ->
+	# 	console.error 'Search failed:', error
+	# 	return res.sendStatus 201
+	console.log "1"
+	(new Nightmare)
+	.goto('http://yahoo.com')
+	.type('form[action*="/search"] [name=p]', 'github nightmare')
+	.click('form[action*="/search"] [type=submit]')
+	.wait('#main')
+	.evaluate(->
+		console.log "2"
+		document.querySelector('#main .searchCenterMiddle li a').href
+	).end().then((result) ->
+		console.log "3"
+		console.log result
+		return
+	).catch (error) ->
+		console.error 'Search failed:', error
+		return
+
+
 homeController.ants = (req, res) ->
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
-	console.log "- - - - - - - - - - - - - RUNNING - - - - - - - - - - - - -"
+	console.log "- - - - - -  RUNNING ants #{moment().format()} - - - - - -"
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 	console.log "-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%-+=][';>|]+-&^$&(@%<"
 

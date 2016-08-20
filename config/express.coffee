@@ -8,6 +8,7 @@ bodyParser = require 'body-parser'
 compress = require 'compression'
 methodOverride = require 'method-override'
 exphbs  = require 'express-handlebars'
+moment  = require 'moment'
 
 v1 = require '../app/v1/routes'
 
@@ -64,3 +65,10 @@ module.exports = (app, config) ->
       message: err.message
       error: {}
       title: 'error'
+
+  console.info "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+  console.info "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  console.info "Running at http://localhost:#{config.port} #{moment().format()}"
+  console.info "Connected to", config.db
+  console.info "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  console.info "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
