@@ -21,15 +21,15 @@ TIMER_SECONDS = 90
 i = 0
 i2 = 0
 
-# callAnts = ->
-# 	console.log "call ants"
-# 	request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
-# setInterval callAnts, TIMER_SECONDS * 1000
+callAnts = ->
+	console.log "call ants"
+	request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
+setInterval callAnts, (TIMER_SECONDS + 10) * 1000
 
 callCashOrTrade = ->
 	console.log "call cashortrade"
 	request.get {url: "http://ants-scraper.herokuapp.com/v1/cashortrade"}, (error, response, body) ->
-setInterval callCashOrTrade, TIMER_SECONDS * 1000
+setInterval callCashOrTrade, (TIMER_SECONDS - 10) * 1000
 
 homeController.index = (req, res) ->
 	return res.sendStatus 200
