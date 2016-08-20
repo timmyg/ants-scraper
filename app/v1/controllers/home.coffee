@@ -19,12 +19,15 @@ TIME_LABEL = "ants-timer"
 TIMER_SECONDS = 90 
 i = 0
 
-callAnts = ->
-	console.log "call ants"
-	request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
+# callAnts = ->
+# 	console.log "call ants"
+# 	request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
+# setInterval callAnts, TIMER_SECONDS * 1000
 
-# call self every TIMER_SECONDS seconds
-setInterval callAnts, TIMER_SECONDS * 1000
+callCashOrTrade = ->
+	console.log "call cashortrade"
+	request.get {url: "http://ants-scraper.herokuapp.com/v1/cashortrade"}, (error, response, body) ->
+setInterval callCashOrTrade, TIMER_SECONDS * 1000
 
 homeController.index = (req, res) ->
 	return res.sendStatus 200
@@ -38,21 +41,20 @@ homeController.cashortrade = (req, res) ->
 	), (doc) ->
 		html = doc.all['0'].innerHTML
 		console.log "cot html", html
-		# $ = cheerio.load(html)
-		# $('[id^=thread_title]').each (i, elem) ->
-		# 	title = $(this).parent().text().trim().replace(/(\r\n|\n|\r)/gm,"")
-		# 	console.log "thread title:", title
-		# 	id =  $(this)['0'].attribs.id
-		# 	path =  $(this)['0'].attribs.href
-		# 	relevantConcert = isCoolConcert title, id, path, keywords
-		# 	return console.info "not relevant" unless relevantConcert
-		# 	isAlreadySent path, (err, alert) ->
-		# 		return console.info "already created #{path}" if alert
-		# 		link = "http://antsmarching.org/forum/#{path}"
-		# 		Alert.create
-		# 			href: path
-		# 		, (err, alert) ->	
-		# 			sendAlert title, link
+		$ = cheerio.load(html)
+		$('.face-value').each (i, elem) ->
+			title = $(this).text().trim()
+			id =  $(this)['0'].attribs.href.split("/")[4]
+			path =  $(this)['0'].attribs.href
+			console.log "cashortrade:", title, id, path
+			relevantConcert = isCoolConcert title, id, path, keywords
+			isAlreadySent path, (err, alert) ->
+				return console.info "already created #{path}" if alert
+				link = "https://cashortrade.org#{path}"
+				Alert.create
+					href: path
+				, (err, alert) ->	
+					sendAlert title, link
 	).run(->
 		console.timeEnd "#{TIME_LABEL}-#{i}"
 		i++
