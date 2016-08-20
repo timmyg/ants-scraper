@@ -16,7 +16,7 @@ Alert = mongoose.models.Alert
 require "#{v.PATH.v1.MODELS}/concert"
 Concert = mongoose.models.Concert
 ANTS_TIME_LABEL = "ants-timer"
-COT_TIME_LABEL = "ants-timer"
+COT_TIME_LABEL = "cot-timer"
 TIMER_SECONDS = 90 
 i = 0
 i2 = 0
@@ -37,22 +37,28 @@ homeController.index = (req, res) ->
 homeController.cashortrade = (req, res) ->
 	console.timeEnd "#{COT_TIME_LABEL}-#{i2}"
 	getConcertKeywords (err, keywords)->
+		console.log "1"
 		(new Nightmare)
 		.goto('https://cashortrade.org/dave-matthews-band-tickets?cash_or_trade=1')
 		.wait()
 		.evaluate((->
 			document
 		), (doc) ->
+			console.log "2"
 			html = doc.all['0'].innerHTML
 			console.log "cot html", html
 			$ = cheerio.load(html)
 			$('.face-value').each (i, elem) ->
+				console.log "3"
 				title = $(this).text().trim()
 				id =  $(this)['0'].attribs.href.split("/")[4]
 				path =  $(this)['0'].attribs.href
+				console.log "4"
 				console.log "cashortrade:", title, id, path
+				console.log "5"
 				relevantConcert = isCoolConcert title, id, path, keywords
 				isAlreadySent path, (err, alert) ->
+					console.log "6"
 					return console.info "already created #{path}" if alert
 					link = "https://cashortrade.org#{path}"
 					Alert.create
@@ -60,6 +66,7 @@ homeController.cashortrade = (req, res) ->
 					, (err, alert) ->	
 						sendAlert title, link
 		).run(->
+			console.log "7"
 			console.timeEnd "#{COT_TIME_LABEL}-#{i2}"
 			i2++
 			return res.sendStatus 201
