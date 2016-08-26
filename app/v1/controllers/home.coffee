@@ -137,7 +137,7 @@ sendAlert = (title, link) ->
 isCoolConcert = (title, id, path, keywords) ->
 	title = title.toLowerCase()
 	if isSale title
-		unless isLawn title
+		# unless isLawn title
 			if isRelevantConcert title, keywords
 				return true
 	return false
