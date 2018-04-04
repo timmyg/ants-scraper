@@ -83,23 +83,23 @@ homeController.ants = (req, res) ->
 
 	console.time "#{ANTS_TIME_LABEL}-#{i}"
 	getConcertKeywords (err, keywords)->
-		console.log "keywords:", keywords
-		(new Nightmare)
-		.goto('http://antsmarching.org/forum/forumdisplay.php?f=11')
+		console.log "keywords:", keywords, process.env.ANTS_USER, process.env.ANTS_PASSWORD
+		nightmare = Nightmare();
+		nightmare
+		.goto('https://antsmarching.org/forum/forumdisplay.php?f=11')
 		.type('input.bginput#navbar_username', process.env.ANTS_USER)
 		.type('input.bginput#navbar_password', process.env.ANTS_PASSWORD)
 		.screenshot('test/ants-before-login.png')
 		.click('input.button[type="submit"][value="Log in"]')
-		.wait()
-		.goto('http://antsmarching.org/forum/forumdisplay.php?f=11')
+		.wait(5000)
+		.goto('https://antsmarching.org/forum/forumdisplay.php?f=11')
 		.screenshot('test/ants-after-login-1.png')
-		.wait()
-		.screenshot('test/ants-after-login-2.png')
-		.evaluate((->
-			document
-		), (doc) ->
-			html = doc.all['0'].innerHTML
-			console.log "ants html", html
+		# .wait()
+		# .screenshot('test/ants-after-login-2.png')
+		.evaluate(-> document.body.innerHTML).end().then (html) ->
+			# console.log "returned!", doc
+			# html = doc.all['0'].innerHTML
+			# console.log "ants html", html
 			$ = cheerio.load(html)
 			$('[id^=thread_title]').each (i, elem) ->
 				title = $(this).parent().text().trim().replace(/(\r\n|\n|\r)/gm,"")
@@ -115,11 +115,12 @@ homeController.ants = (req, res) ->
 						href: path
 					, (err, alert) ->	
 						sendAlert title, link
-		).run(->
 			console.timeEnd "#{ANTS_TIME_LABEL}-#{i}"
 			i++
 			return res.sendStatus 201
-		)
+		# ).run(->
+
+		# )
 
 homeController.sendTest = (req, res) ->
 	sendAlert "Test Alert", "https://www.espn.com"
@@ -169,7 +170,12 @@ isRelevantConcert = (title, keywords) ->
 
 
 getConcertKeywords = (callback) ->
-	Concert.find (err, concerts) ->
+	console.log "getConcertKeywords..."
+	# console.log "getconcertketwords...", callback
+	Concert.find {}, (err, concerts) ->
+		console.log "err, concerts"
+		console.log err, concerts
+		console.log concerts.length
 		keywords = []
 		for concert in concerts
 			keywords = keywords.concat concert.keywords
