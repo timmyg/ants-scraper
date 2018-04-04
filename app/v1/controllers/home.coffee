@@ -110,8 +110,9 @@ homeController.ants = (req, res) ->
 					, (err, alert) ->	
 						sendAlert title, link
 			console.timeEnd "#{ANTS_TIME_LABEL}-#{i}"
-			i++
+			i++ 
 			return res.sendStatus 201
+			
 		# ).run(->
 
 		# )
