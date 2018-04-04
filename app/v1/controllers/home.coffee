@@ -65,7 +65,7 @@ homeController.cashortrade = (req, res) ->
 			console.timeEnd "#{COT_TIME_LABEL}-#{i2}"
 			i2++
 			return res.sendStatus 201
-		)
+		# )
 
 
 homeController.ants = (req, res) ->
