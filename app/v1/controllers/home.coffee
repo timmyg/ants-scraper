@@ -41,12 +41,7 @@ homeController.cashortrade = (req, res) ->
 		(new Nightmare)
 		.goto('https://cashortrade.org/dave-matthews-band-tickets?cash_or_trade=1')
 		.wait()
-		.evaluate((->
-			document
-		), (doc) ->
-			console.log "2"
-			html = doc.all['0'].innerHTML
-			console.log "cot html", html
+		.evaluate(-> document.body.innerHTML).end().then (html) ->
 			$ = cheerio.load(html)
 			$('.face-value').each (i, elem) ->
 				console.log "3"
@@ -66,7 +61,6 @@ homeController.cashortrade = (req, res) ->
 						href: path
 					, (err, alert) ->	
 						sendAlert title, link
-		).run(->
 			console.log "7"
 			console.timeEnd "#{COT_TIME_LABEL}-#{i2}"
 			i2++
