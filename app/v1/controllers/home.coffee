@@ -86,15 +86,15 @@ homeController.ants = (req, res) ->
 		.goto('https://antsmarching.org/forum/forumdisplay.php?f=11')
 		.type('input.bginput#navbar_username', process.env.ANTS_USER)
 		.type('input.bginput#navbar_password', process.env.ANTS_PASSWORD)
-		.screenshot('test/ants-before-login.png')
+		# .screenshot('test/ants-before-login.png')
 		.click('input.button[type="submit"][value="Log in"]')
 		.wait(5000)
 		.goto('https://antsmarching.org/forum/forumdisplay.php?f=11')
-		.screenshot('test/ants-after-login-1.png')
+		# .screenshot('test/ants-after-login-1.png')
 		# .wait()
 		# .screenshot('test/ants-after-login-2.png')
 		.evaluate(-> document.body.innerHTML).end().then (html) ->
-			# console.log "returned!", doc
+			console.log "returned!", html
 			# html = doc.all['0'].innerHTML
 			# console.log "ants html", html
 			$ = cheerio.load(html)
