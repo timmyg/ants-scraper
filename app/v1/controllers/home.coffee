@@ -21,11 +21,7 @@ TIMER_MINUTES = 1
 i = 0
 i2 = 0
 
-callAnts = ->
-	console.log "call ants"
-	# request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
-	homeController.ants()
-setInterval callAnts, TIMER_MINUTES * 60000
+
 
 # callCashOrTrade = ->
 # 	console.log "call cashortrade"
@@ -116,7 +112,8 @@ homeController.ants = (req, res) ->
 			i++ 
 			if res 
 				return res.sendStatus 201
-			
+		.catch (error) ->
+			console.error 'error::::', error
 		# ).run(->
 
 		# )
@@ -180,6 +177,15 @@ getConcertKeywords = (callback) ->
 		for concert in concerts
 			keywords = keywords.concat concert.keywords
 		callback err, keywords
+
+
+
+callAnts = ->
+	console.log "call ants"
+	# request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
+	homeController.ants()
+callAnts()
+setInterval callAnts, TIMER_MINUTES * 60000
 
 
 module.exports = homeController
