@@ -17,7 +17,7 @@ require "#{v.PATH.v1.MODELS}/concert"
 Concert = mongoose.models.Concert
 ANTS_TIME_LABEL = "ants-timer"
 COT_TIME_LABEL = "cot-timer"
-TIMER_MINUTES = 1 
+TIMER_MINUTES = 3
 i = 0
 i2 = 0
 

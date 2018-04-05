@@ -40,7 +40,7 @@ heroku logs -n 1500
 
 * prod mongo url hosted on mongolab
 * server running on heroku
-* pinging every 5 minutes from statuscake.com
+* runs every 3 minutes
 * concert keywords can be changed in database concerts collection without needing server reset
 
 ##### required env vars
@@ -48,8 +48,8 @@ heroku logs -n 1500
 * MONGO_URL
 * ANTS_USER
 * ANTS_PASSWORD
-* PUSHOVER_USER
-* PUSHOVER_TOKEN
+* PUSHOVER_USER (ends in R4gq)
+* PUSHOVER_TOKEN (ends in vV3y)
 
 ##### the best part...
 
