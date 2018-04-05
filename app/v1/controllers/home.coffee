@@ -17,22 +17,24 @@ require "#{v.PATH.v1.MODELS}/concert"
 Concert = mongoose.models.Concert
 ANTS_TIME_LABEL = "ants-timer"
 COT_TIME_LABEL = "cot-timer"
-TIMER_SECONDS = 90 
+TIMER_MINUTES = 1 
 i = 0
 i2 = 0
 
 callAnts = ->
 	console.log "call ants"
-	request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
-setInterval callAnts, (TIMER_SECONDS + 10) * 1000
+	# request.get {url: "http://ants-scraper.herokuapp.com/v1/ants"}, (error, response, body) ->
+	homeController.ants()
+setInterval callAnts, TIMER_MINUTES * 60000
 
 # callCashOrTrade = ->
 # 	console.log "call cashortrade"
 # 	request.get {url: "http://ants-scraper.herokuapp.com/v1/cashortrade"}, (error, response, body) ->
-# setInterval callCashOrTrade, (TIMER_SECONDS - 10) * 1000
+# setInterval callCashOrTrade, (TIMER_MINUTES - 10) * 1000
 
 homeController.index = (req, res) ->
-	return res.sendStatus 200
+	if res 
+		return res.sendStatus 200
 
 homeController.cashortrade = (req, res) ->
 	console.time "#{COT_TIME_LABEL}-#{i2}"
@@ -64,7 +66,8 @@ homeController.cashortrade = (req, res) ->
 			console.log "7"
 			console.timeEnd "#{COT_TIME_LABEL}-#{i2}"
 			i2++
-			return res.sendStatus 201
+			if res 
+				return res.sendStatus 201
 		# )
 
 
@@ -111,7 +114,8 @@ homeController.ants = (req, res) ->
 						sendAlert title, link
 			console.timeEnd "#{ANTS_TIME_LABEL}-#{i}"
 			i++ 
-			return res.sendStatus 201
+			if res 
+				return res.sendStatus 201
 			
 		# ).run(->
 
@@ -119,7 +123,8 @@ homeController.ants = (req, res) ->
 
 homeController.sendTest = (req, res) ->
 	sendAlert "Test Alert", "https://www.espn.com"
-	return res.sendStatus 201
+	if res 
+		return res.sendStatus 201
 
 sendAlert = (title, link) ->
 	msg = 
